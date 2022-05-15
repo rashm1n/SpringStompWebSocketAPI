@@ -8,17 +8,30 @@
 </head>
 <body>
     <button id="btn-1" name="btn-1" onclick="onClickConnect()">Connect Stomp</button>
+    <br>
+    <br>
+    <span>
+        <input name="msgbox1" type="text" id="msgbox1"/>
+        <button id="btn-2" name="btn-2" onclick="sendMsg()">Send Msg</button>
+    </span>
     <script>
+        var socket = new SockJS("http://localhost:8080/ws-sockjs-stomp")
+        var stompClient = webstomp.over(socket)
+
 
         function onClickConnect() {
-            console.log("connecting")
-            var socket = new SockJS("http://localhost:8080/ws-sockjs-stomp")
-            var stompClient = webstomp.over(socket)
-
+            console.log("Connecting to Spring WS Endpoint")
             stompClient.connect({}, function (frame) {
                 console.log(frame)
             })
         }
+
+        function sendMsg() {
+            console.log("Sending msg")
+            stompClient.send("/app/request2","msgId:1","Hey!")
+        }
+
+
     </script>
 </body>
 </html>
