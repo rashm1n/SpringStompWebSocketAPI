@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stomp Client</title>
+    <script src="sockjs.js"></script>
+    <script src="webstomp.js"></script>
+</head>
+<body>
+    <button id="btn-1" name="btn-1" onclick="onClickConnect()">Connect Stomp</button>
+    <script>
+
+        function onClickConnect() {
+            console.log("connecting")
+            var socket = new SockJS("http://localhost:8080/ws-sockjs-stomp")
+            var stompClient = webstomp.over(socket)
+
+            stompClient.connect({}, function (frame) {
+                console.log(frame)
+            })
+        }
+    </script>
+</body>
+</html>
